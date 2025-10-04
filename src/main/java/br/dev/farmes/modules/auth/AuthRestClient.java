@@ -10,7 +10,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
-@RegisterRestClient(baseUri = "https://cooperativade192848.winthor.cloudtotvs.com.br")
+@RegisterRestClient(configKey = "auth-api")
 public interface AuthRestClient {
 
 	@POST

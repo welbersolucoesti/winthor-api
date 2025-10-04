@@ -3,13 +3,14 @@ package br.dev.farmes.modules.pedidos;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import br.dev.farmes.modules.pedidos.dto.PedidoResponse;
+import jakarta.enterprise.inject.Default;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
 
-@RegisterRestClient(baseUri = "https://cooperativade192848.winthor.cloudtotvs.com.br")
+@RegisterRestClient(configKey = "auth-api")
 public interface PedidoRestClient {
 
 	@GET
