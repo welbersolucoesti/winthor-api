@@ -1,8 +1,8 @@
-package br.dev.farmes.modules.pedidos;
+package br.dev.farmes.modules.pedidos.entities;
 
 import java.math.BigDecimal;
 
-import br.dev.farmes.modules.pedidos.dto.PedidoResponse;
+import br.dev.farmes.modules.pedidos.dto.PedidoItemResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -16,7 +16,20 @@ public class PedidoEntity {
 	public String posicao;
 	public String cobranca;
 	public String planoPagamento;
+	public Integer idCliente;
 	public String cliente;
+	
+	public PedidoEntity() {
+		this.numped = 0;
+		this.numnota = 0;
+		this.data = "";
+		this.valor = BigDecimal.ZERO;
+		this.posicao = "";
+		this.cobranca = "";
+		this.planoPagamento = "";
+		this.idCliente = 0;
+		this.cliente = "";
+	}
 	
 	public PedidoEntity(
 			Integer numped, 
@@ -26,6 +39,7 @@ public class PedidoEntity {
 			String posicao,
 			String cobranca, 
 			String planoPagamento, 
+			Integer idCliente,
 			String cliente) {
 		this.numped = numped;
 		this.numnota = numnota;
@@ -34,11 +48,12 @@ public class PedidoEntity {
 		this.posicao = posicao;
 		this.cobranca = cobranca;
 		this.planoPagamento = planoPagamento;
+		this.idCliente = idCliente;
 		this.cliente = cliente;
 	}
 	
-	public PedidoResponse toResponse() {
-		return new PedidoResponse(
+	public PedidoItemResponse toResponse() {
+		return new PedidoItemResponse(
 				this.numped,
 				this.numnota,
 				this.data,
@@ -46,7 +61,6 @@ public class PedidoEntity {
 				this.posicao,
 				this.cobranca,
 				this.planoPagamento,
-				this.cliente
-				);
+				this.cliente);
 	}
 }
