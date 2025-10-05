@@ -2,8 +2,6 @@ package br.dev.farmes.modules.pedidos;
 
 import java.util.List;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 import br.dev.farmes.modules.pedidos.dto.PedidoResponse;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -19,44 +17,27 @@ public class PedidoController {
 	@Inject
 	PedidoService pedidoService;
 	
-	@Inject
-	@RestClient
-	PedidoRestClient pedidoRestClient;
-	
 	@GET
 	@Produces("application/json")
-	public List<PedidoResponse> getAllPedidos(@HeaderParam("Authorization") String authorization) {
-		try {
-			List<PedidoResponse> pedidos = pedidoService.findAll();
-			return pedidos;
-		} catch (Exception e) {
-			throw new RuntimeException("Erro ao buscar pedidos: " + e.getMessage());
-		}
+	public List<PedidoResponse> getAllPedidos(
+			@HeaderParam("Authorization") String authorization) {
+		return pedidoService.findAll();
 	}	
 	
 	@GET
 	@Path("/{pedidoId}")
 	@Produces("application/json")
-	public PedidoResponse getPedido(@HeaderParam("Authorization") String authorization, @PathParam("pedidoId") Integer pedidoId) {
-		try {
-			PedidoResponse pedido = pedidoService.findByNumPed(pedidoId);
-			return pedido;
-		} catch (Exception e) {
-			throw new RuntimeException("Erro ao buscar pedido: " + e.getMessage());
-		}
+	public PedidoResponse getPedido(
+			@HeaderParam("Authorization") String authorization, 
+			@PathParam("pedidoId") Integer pedidoId) {
+		return pedidoService.findByNumPed(pedidoId);
 	}
 	
 	@DELETE
 	@Path("/{pedidoId}")
-	public void deletePedido(@HeaderParam("Authorization") String authorization, @PathParam("pedidoId") String orderId) {
-		try {
-			pedidoRestClient.deletePedido(
-					authorization, 
-					orderId, 
-					"false", 
-					"Cancelamento via API");
-		} catch (Exception e) {
-			throw new RuntimeException("Erro ao deletar pedido: " + e.getMessage());
-		}
+	public void deletePedido(
+			@HeaderParam("Authorization") String authorization, 
+			@PathParam("pedidoId") String orderId) {
+		pedidoService.deletePedido(authorization, orderId);
 	}
 }
