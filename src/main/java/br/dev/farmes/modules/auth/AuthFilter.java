@@ -26,10 +26,7 @@ public class AuthFilter implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext requestContext) {
 		String authorization = requestContext.getHeaderString("Authorization");
 		
-		// Se for a rota de login, não precisa validar o token
 		String path = requestContext.getUriInfo().getPath();
-		
-		System.out.println("Request Path: " + path);
 		
 		if (path.equals("/api/auth") && requestContext.getMethod().equals("POST"))
 			return;
